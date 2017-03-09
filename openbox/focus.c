@@ -113,7 +113,7 @@ static ObClient* focus_fallback_target(gboolean allow_refocus,
 {
     GList *it;
     ObClient *c;
-
+#if 0
     ob_debug_type(OB_DEBUG_FOCUS, "trying pointer stuff");
     if (allow_pointer && config_focus_follow)
         if ((c = client_under_pointer()) &&
@@ -124,7 +124,7 @@ static ObClient* focus_fallback_target(gboolean allow_refocus,
             ob_debug_type(OB_DEBUG_FOCUS, "found in pointer stuff");
             return c;
         }
-
+#endif
     ob_debug_type(OB_DEBUG_FOCUS, "trying the focus order");
     for (it = focus_order; it; it = g_list_next(it)) {
         c = it->data;

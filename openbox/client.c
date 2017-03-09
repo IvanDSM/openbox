@@ -3098,6 +3098,7 @@ void client_try_configure(ObClient *self, gint *x, gint *y, gint *w, gint *h,
         *w /= incw;
         *h /= inch;
 
+		/* TODO: Verify functionality of the following code */
         /* you cannot resize to nothing */
         if (basew + *w < 1) *w = 1 - basew;
         if (baseh + *h < 1) *h = 1 - baseh;
@@ -3115,6 +3116,12 @@ void client_try_configure(ObClient *self, gint *x, gint *y, gint *w, gint *h,
 
         *w += basew;
         *h += baseh;
+		
+		/* WGG stage 1: Guard against insane base sizes and increments*/
+		if (*w > self->max_size.width) *w = self->max_size.width;
+        if (*w < minw) *w = minw;
+        if (*h > self->max_size.height) *h = self->max_size.height;
+        if (*h < minh) *h = minh;
 
         /* adjust the height to match the width for the aspect ratios.
            for this, min size is not substituted for base size ever. */
